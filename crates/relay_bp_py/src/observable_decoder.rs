@@ -62,6 +62,11 @@ impl ObservableDecodeResult {
     }
 
     #[getter]
+    pub fn num_relay_legs(&self) -> usize {
+        self.inner.num_relay_legs
+    }
+
+    #[getter]
     pub fn unconverged_no_error(&self) -> Option<bool> {
         let true_decoding = self.inner.true_decoding.as_ref()?;
         Some(true_decoding.unconverged_no_error)
@@ -144,6 +149,16 @@ impl ObservableDecoderRunner {
         detectors: PyReadonlyArray1<'_, Bit>,
     ) -> Bound<'py, PyArray1<Bit>> {
         PyArray1::from_array(py, &self.inner.decode_observables(detectors.as_array()))
+    }
+
+    pub fn decode_observables_detailed(
+        &mut self,
+        detectors: PyReadonlyArray1<'_, Bit>,
+    ) -> ObservableDecodeResult {
+        ObservableDecodeResult::new(
+            self.inner
+                .decode_observables_detailed(detectors.as_array()),
+        )
     }
 
     pub fn from_errors_decode_observables_detailed(

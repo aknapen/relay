@@ -326,6 +326,7 @@ where
                         .unwrap();
                     self.write_log(file);
                 }
+                result.num_relay_legs = self.num_executed_sets;
                 return result;
             }
         }
@@ -370,6 +371,7 @@ where
             }
         }
         result.iterations = total_iterations;
+        result.num_relay_legs = self.num_executed_sets;
 
         // Rest of the function is just logging
         if self.relay_config.logging {

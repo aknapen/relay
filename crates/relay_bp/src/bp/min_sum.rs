@@ -510,6 +510,7 @@ where
             },
             iterations: self.current_iteration,
             max_iter,
+            num_relay_legs: 0,
             extra: BPExtraResult::None,
         }
     }
